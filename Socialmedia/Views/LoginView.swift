@@ -21,6 +21,8 @@ struct LoginView: View {
     @State var createAccount: Bool = false
     @State var showerror:Bool = false
     @State var errorMessage:String = ""
+    
+    
     var body: some View {
         VStack(spacing: 10){
             Text("SignIn").font(.largeTitle.bold())
@@ -121,6 +123,14 @@ struct RegisterView:View{
     @State var photoItem:PhotosPickerItem?
     @State var showerror:Bool = false
     @State var errormessage: String = ""
+    @State var isLoading:Bool = false
+    //MARK: USER DEFAULTS
+    
+    @AppStorage("log_status")var logStatus:Bool = false
+    @AppStorage("user_profile_url")var profileURL:URL?
+    @AppStorage("user_name")var usernameStored:String = ""
+    @AppStorage("user_UID")var userID:String = ""
+    
     var body: some View{
         VStack(spacing: 10){
             Text("SignUp").font(.largeTitle.bold())
@@ -152,6 +162,9 @@ struct RegisterView:View{
         }
         .vAlign(.top)
         .padding(15)
+        .overlay(content:{
+            LoadingView(show: $isLoading)
+        })
         .photosPicker(isPresented: $showimagePicker, selection:$photoItem )
         .onChange(of: photoItem){newValue in
             //MARK: Extracting UI Image from photoItem
@@ -234,6 +247,7 @@ struct RegisterView:View{
         
     }
     func registerUser(){
+        isLoading = true
         Task{
             do{
                 //step1 create firebase acc
@@ -253,6 +267,10 @@ struct RegisterView:View{
                     if error ==  nil{
                         //MARK: Print saved successfully
                         print("saved successfully")
+                        usernameStored = username
+                        self.userID = userID
+                        profileURL = downloadurl
+                        logStatus = true
                         
                     }
                 })
@@ -268,6 +286,8 @@ struct RegisterView:View{
         await MainActor.run(body: {
             errormessage = error.localizedDescription
             showerror.toggle()
+            isLoading = false
+            
         })
     }
 }
