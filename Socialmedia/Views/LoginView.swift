@@ -21,7 +21,12 @@ struct LoginView: View {
     @State var createAccount: Bool = false
     @State var showerror:Bool = false
     @State var errorMessage:String = ""
+    @State var isloading:Bool = false
     
+    @AppStorage("user_profile_url") var profileURL:URL?
+    @AppStorage("user_name") var userNameStored: String = ""
+    @AppStorage("user_UID") var userUID: String = ""
+    @AppStorage("log_status") var logStatus:Bool = false
     
     var body: some View {
         VStack(spacing: 10){
@@ -69,6 +74,9 @@ struct LoginView: View {
         }
         .vAlign(.top)
         .padding(15)
+        .overlay(content:{
+            LoadingView(show: $isloading)
+        })
         //MARK: Register Views
         .fullScreenCover(isPresented: $createAccount){
             RegisterView()
@@ -77,15 +85,31 @@ struct LoginView: View {
         .alert(errorMessage,isPresented: $showerror ,actions: {})
     }
     func loginuser(){
+        isloading = true
+        closekeyboard()
         Task{
             do{
                 try await Auth.auth().signIn(withEmail: emailID, password: password)
                 print("user found")
+                try await fetchUser()
             }
             catch{
                 await setError(error)
             }
         }
+    }
+    //MARK: IF USER FOUND THEN FETCHING USER DATA FROM FIRESTORE
+    func fetchUser()async throws{
+        guard let userID = Auth.auth().currentUser?.uid else{return}
+        let user = try await Firestore.firestore().collection("Users").document(userID).getDocument(as: User.self)
+        //MARK : UI UPDATING IN MAIN THREAD
+        await MainActor.run(body: {
+            //setting user defaults and changing app's auth status
+            userUID = userID
+            userNameStored = user.username
+            profileURL = user.userprofileURL
+            logStatus = true
+        })
     }
     func resetpassword(){
         Task{
@@ -105,6 +129,7 @@ struct LoginView: View {
             errorMessage = error.localizedDescription
             showerror.toggle()
         })
+        isloading = false
     }
 }
 
@@ -248,6 +273,7 @@ struct RegisterView:View{
     }
     func registerUser(){
         isLoading = true
+        closekeyboard()
         Task{
             do{
                 //step1 create firebase acc
@@ -296,6 +322,9 @@ struct RegisterView:View{
 }
 //MARK: View extensions for UI Building
 extension View{
+    func closekeyboard(){
+        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+    }
     func disabledOpacity(_ condition: Bool)-> some View{
         self.disabled(condition)
             .opacity(condition ? 0.6 : 1)
