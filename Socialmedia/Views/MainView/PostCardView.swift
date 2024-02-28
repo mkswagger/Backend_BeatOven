@@ -67,7 +67,7 @@ struct PostCardView: View {
             //displaying delete button if it is author's post
             if post.userUID == userUID{
                 Menu{
-                    Button("Delete Post", role: .destructive , action: {})
+                    Button("Delete Post", role: .destructive , action: deletePost)
                 }label: {
                     Image(systemName: "ellipsis")
                         .font(.caption)
@@ -136,7 +136,19 @@ struct PostCardView: View {
         }
     }
     //delete post
-    
+    func deletePost(){
+        Task{
+            do{
+                if post.imageReferenceID != ""{
+                    try await Storage.storage().reference().child("Post_images").child(post.imageReferenceID).delete()
+                }
+                guard let postID = post.id else{return}
+                try await Firestore.firestore().collection("Posts").document(postID).delete()
+            }catch{
+                print(error.localizedDescription)
+            }
+        }
+    }
 }
 
 
