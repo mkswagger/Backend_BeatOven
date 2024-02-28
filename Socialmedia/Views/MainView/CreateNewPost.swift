@@ -145,7 +145,7 @@ struct CreateNewPost: View {
                     let _ = try await storageref.putDataAsync(postImageData)
                     let downloadURL = try await storageref.downloadURL()
                     //create post obj with image id and url
-                    let post = Post(text: postText, imageURL: downloadURL, imageReferenceID: imageReferenceID, username: userName, userUID : userUID, userProfileURL: profileURL)
+                    let post = Post(text: postText, imageURL: downloadURL,imageReferenceID: imageReferenceID, publishedDate: Date(), username: userName, userUID : userUID, userProfileURL: profileURL)
 //                    let post = Post(text: postText, publishedDate: publishedDate! , username: userName, userUID: userUID, userProfileURL: profileURL)
                     try await createDocumentAtFirebase(post)
                 }else{
@@ -162,11 +162,14 @@ struct CreateNewPost: View {
     }
     func createDocumentAtFirebase(_ post: Post)async throws{
         //writing doc into firebase firestore
-        let _ = try Firestore.firestore().collection("Posts").addDocument(from: post, completion: {error in
+        let doc = Firestore.firestore().collection("Posts").document()
+        let _ = try doc.setData(from: post, completion: {error in
             if error == nil{
                 //post successfully stored at firebase
                 isLoading = false
-                onPost(post)
+                var updatedPost = post
+                updatedPost.id = doc.documentID
+                onPost(updatedPost)
                 dismiss()
             }
         })

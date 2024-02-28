@@ -98,6 +98,15 @@ struct PostCardView: View {
                 })
                 
             }
+        
+        }
+        .onDisappear{
+            // MARK: Applying snapshot listener only when the post is available on screen
+            //else remove listener by saving the unwanted live updates from the posts which was swiped away
+            if let docListener{
+                docListener.remove()
+               self.docListener = nil
+            }
         }
     }
     // MARK: Like/Dislike Interaction
@@ -140,7 +149,7 @@ struct PostCardView: View {
         Task{
             do{
                 if post.imageReferenceID != ""{
-                    try await Storage.storage().reference().child("Post_images").child(post.imageReferenceID).delete()
+                    try await Storage.storage().reference().child("Post_Images").child(post.imageReferenceID).delete()
                 }
                 guard let postID = post.id else{return}
                 try await Firestore.firestore().collection("Posts").document(postID).delete()

@@ -63,7 +63,8 @@ struct ReusablePostsView: View {
             } onDelete: {
                 // Removing Post from the array
                 withAnimation(.easeInOut(duration: 0.25)){
-                    posts.removeAll{post == $0}
+                    posts.removeAll{post.id == $0.id}
+                    //id to be included
                 }
                 
             }
