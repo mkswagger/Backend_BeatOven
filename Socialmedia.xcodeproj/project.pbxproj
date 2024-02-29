@@ -19,6 +19,7 @@
 		2F5C5D432B8F219200531C33 /* PostsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F5C5D422B8F219200531C33 /* PostsView.swift */; };
 		2F5C5D452B8F246000531C33 /* ReusablePostsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F5C5D442B8F246000531C33 /* ReusablePostsView.swift */; };
 		2F5C5D472B8F2A0E00531C33 /* PostCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F5C5D462B8F2A0E00531C33 /* PostCardView.swift */; };
+		2F5C5D4B2B90331300531C33 /* SearchUserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F5C5D4A2B90331300531C33 /* SearchUserView.swift */; };
 		983468582B8D997E0045D037 /* SocialmediaApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 983468572B8D997E0045D037 /* SocialmediaApp.swift */; };
 		9834685A2B8D997E0045D037 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 983468592B8D997E0045D037 /* ContentView.swift */; };
 		9834685C2B8D997F0045D037 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9834685B2B8D997F0045D037 /* Assets.xcassets */; };
@@ -67,6 +68,7 @@
 		2F5C5D422B8F219200531C33 /* PostsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostsView.swift; sourceTree = "<group>"; };
 		2F5C5D442B8F246000531C33 /* ReusablePostsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReusablePostsView.swift; sourceTree = "<group>"; };
 		2F5C5D462B8F2A0E00531C33 /* PostCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCardView.swift; sourceTree = "<group>"; };
+		2F5C5D4A2B90331300531C33 /* SearchUserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchUserView.swift; sourceTree = "<group>"; };
 		983468542B8D997E0045D037 /* Socialmedia.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Socialmedia.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		983468572B8D997E0045D037 /* SocialmediaApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialmediaApp.swift; sourceTree = "<group>"; };
 		983468592B8D997E0045D037 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -129,12 +131,10 @@
 			isa = PBXGroup;
 			children = (
 				2F5C5D352B8EDC0C00531C33 /* MainView.swift */,
-				2F5C5D372B8EDD8000531C33 /* ProfileView.swift */,
-				2F5C5D392B8EEB5F00531C33 /* ReusableProfileContent.swift */,
 				2F5C5D3E2B8EFBE700531C33 /* CreateNewPost.swift */,
-				2F5C5D422B8F219200531C33 /* PostsView.swift */,
-				2F5C5D442B8F246000531C33 /* ReusablePostsView.swift */,
-				2F5C5D462B8F2A0E00531C33 /* PostCardView.swift */,
+				2F5C5D492B902EA100531C33 /* ProfileView */,
+				2F5C5D482B902E7F00531C33 /* PostView */,
+				2F5C5D4A2B90331300531C33 /* SearchUserView.swift */,
 			);
 			path = MainView;
 			sourceTree = "<group>";
@@ -145,6 +145,25 @@
 				2F5C5D332B8EDB9500531C33 /* Views+Extensions.swift */,
 			);
 			path = Helpers;
+			sourceTree = "<group>";
+		};
+		2F5C5D482B902E7F00531C33 /* PostView */ = {
+			isa = PBXGroup;
+			children = (
+				2F5C5D422B8F219200531C33 /* PostsView.swift */,
+				2F5C5D442B8F246000531C33 /* ReusablePostsView.swift */,
+				2F5C5D462B8F2A0E00531C33 /* PostCardView.swift */,
+			);
+			path = PostView;
+			sourceTree = "<group>";
+		};
+		2F5C5D492B902EA100531C33 /* ProfileView */ = {
+			isa = PBXGroup;
+			children = (
+				2F5C5D372B8EDD8000531C33 /* ProfileView.swift */,
+				2F5C5D392B8EEB5F00531C33 /* ReusableProfileContent.swift */,
+			);
+			path = ProfileView;
 			sourceTree = "<group>";
 		};
 		9834684B2B8D997E0045D037 = {
@@ -325,6 +344,7 @@
 				2F5C5D472B8F2A0E00531C33 /* PostCardView.swift in Sources */,
 				983468AC2B8DFC7D0045D037 /* LoadingView.swift in Sources */,
 				983468582B8D997E0045D037 /* SocialmediaApp.swift in Sources */,
+				2F5C5D4B2B90331300531C33 /* SearchUserView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
