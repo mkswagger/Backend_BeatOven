@@ -9,8 +9,9 @@ import SwiftUI
 import SDWebImageSwiftUI
 import Firebase
 import FirebaseStorage
-
+import AVKit
 struct PostCardView: View {
+    @State private var player: AVPlayer?
     var post: Post
     //callbacks
     var onUpdate: (Post)->()
@@ -18,14 +19,21 @@ struct PostCardView: View {
     //view properties
     @AppStorage("user_UID") private var userUID: String = ""
     @State private var docListener: ListenerRegistration? //for live updates
-    
+
     var body: some View {
         HStack(alignment: .top, spacing: 12){
-            WebImage(url: post.userProfileURL)
-                .resizable()
-                .aspectRatio(contentMode: .fill)
-                .frame(width: 35, height: 35)
-                .clipShape(Circle())
+            if let URl = post.imageURL{
+                if URl.absoluteString.range(of: "Post_Images") != nil{
+                    WebImage(url: post.userProfileURL)
+                        .resizable()
+                        .aspectRatio(contentMode: .fill)
+                        .frame(width: 35, height: 35)
+                        .clipShape(Circle())
+                }
+                else{
+                    PlayerView(player: $player, url: URl)
+                }
+            }
             
             VStack(alignment: .leading, spacing: 6){
                 Text(post.username)
@@ -149,7 +157,16 @@ struct PostCardView: View {
         Task{
             do{
                 if post.imageReferenceID != ""{
-                    try await Storage.storage().reference().child("Post_Images").child(post.imageReferenceID).delete()
+                    if let URl = post.imageURL{
+                        if URl.absoluteString.range(of: "https://firebasestorage.googleapis.com:443/v0/b/backendposts.appspot.com/o/Post_Images") != nil{
+                            try await Storage.storage().reference().child("Post_Images").child(post.imageReferenceID).delete()
+                        }
+                        else{
+                            try await Storage.storage().reference().child("Post_Audios").child(post.imageReferenceID).delete()
+                        }
+                    }
+                    
+                    
                 }
                 guard let postID = post.id else{return}
                 try await Firestore.firestore().collection("Posts").document(postID).delete()
@@ -160,4 +177,58 @@ struct PostCardView: View {
     }
 }
 
+struct PlayerView: View {
+    @Binding var player: AVPlayer?
+    let url: URL
+    var body: some View {
+        VStack {
+            
+            AudioPlayerControlsView(player: $player)
+        }
+        .onAppear {
+            if player == nil {
+                do {
+                    let playerItem:AVPlayerItem = AVPlayerItem(url: url)
+
+                    player = try AVPlayer(playerItem:playerItem)
+                    
+            
+                } catch {
+                    print("Error creating AVAudioPlayer: \(error.localizedDescription)")
+                }
+            }
+        }
+    }
+}
+
+struct AudioPlayerControlsView: View {
+    @Binding var player: AVPlayer?
+    @State private var isPlay = true
+    var body: some View {
+        HStack(spacing: 20) {
+            Button(action: {
+                self.playPause()
+            }) {
+                Image(systemName: isPlay ? "play.fill":"pause.fill")
+            }
+            
+        }
+        .padding(.top, 20)
+    }
+    func playPause(){
+        self.isPlay.toggle()
+        if isPlay{
+            player?.pause()
+        }
+        else{
+            player?.play()
+        }
+    }
+//    func next(){
+//
+//    }
+//    func prev(){
+//
+//    }
+}
 

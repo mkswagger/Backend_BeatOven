@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0F1C0E432B949763008962AE /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0F1C0E422B949763008962AE /* GoogleService-Info.plist */; };
 		2F5C5D312B8E2D8400531C33 /* RegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F5C5D302B8E2D8400531C33 /* RegisterView.swift */; };
 		2F5C5D342B8EDB9500531C33 /* Views+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F5C5D332B8EDB9500531C33 /* Views+Extensions.swift */; };
 		2F5C5D362B8EDC0C00531C33 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F5C5D352B8EDC0C00531C33 /* MainView.swift */; };
@@ -19,7 +20,6 @@
 		2F5C5D452B8F246000531C33 /* ReusablePostsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F5C5D442B8F246000531C33 /* ReusablePostsView.swift */; };
 		2F5C5D472B8F2A0E00531C33 /* PostCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F5C5D462B8F2A0E00531C33 /* PostCardView.swift */; };
 		2F5C5D4B2B90331300531C33 /* SearchUserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F5C5D4A2B90331300531C33 /* SearchUserView.swift */; };
-		2F5C5D662B90950A00531C33 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2F5C5D652B90950A00531C33 /* GoogleService-Info.plist */; };
 		983468582B8D997E0045D037 /* SocialmediaApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 983468572B8D997E0045D037 /* SocialmediaApp.swift */; };
 		9834685A2B8D997E0045D037 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 983468592B8D997E0045D037 /* ContentView.swift */; };
 		9834685C2B8D997F0045D037 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9834685B2B8D997F0045D037 /* Assets.xcassets */; };
@@ -54,10 +54,11 @@
 		983468A52B8D9C230045D037 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 983468A42B8D9C220045D037 /* LoginView.swift */; };
 		983468A82B8DDA420045D037 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 983468A72B8DDA420045D037 /* User.swift */; };
 		983468AC2B8DFC7D0045D037 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 983468AB2B8DFC7D0045D037 /* LoadingView.swift */; };
-		988560772B94422700E062DA /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 988560762B94422700E062DA /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0F1C0E422B949763008962AE /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
+		0F41E0822B94779200590E9A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		2F5C5D302B8E2D8400531C33 /* RegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterView.swift; sourceTree = "<group>"; };
 		2F5C5D332B8EDB9500531C33 /* Views+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Views+Extensions.swift"; sourceTree = "<group>"; };
 		2F5C5D352B8EDC0C00531C33 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
@@ -69,7 +70,6 @@
 		2F5C5D442B8F246000531C33 /* ReusablePostsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReusablePostsView.swift; sourceTree = "<group>"; };
 		2F5C5D462B8F2A0E00531C33 /* PostCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCardView.swift; sourceTree = "<group>"; };
 		2F5C5D4A2B90331300531C33 /* SearchUserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchUserView.swift; sourceTree = "<group>"; };
-		2F5C5D652B90950A00531C33 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../Documents/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		983468542B8D997E0045D037 /* Socialmedia.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Socialmedia.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		983468572B8D997E0045D037 /* SocialmediaApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialmediaApp.swift; sourceTree = "<group>"; };
 		983468592B8D997E0045D037 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -78,7 +78,6 @@
 		983468A42B8D9C220045D037 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		983468A72B8DDA420045D037 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		983468AB2B8DFC7D0045D037 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
-		988560762B94422700E062DA /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../Documents/GoogleService-Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -187,12 +186,13 @@
 		983468562B8D997E0045D037 /* Socialmedia */ = {
 			isa = PBXGroup;
 			children = (
+				0F41E0822B94779200590E9A /* Info.plist */,
 				983468A32B8D9BF10045D037 /* Model */,
 				983468572B8D997E0045D037 /* SocialmediaApp.swift */,
 				983468592B8D997E0045D037 /* ContentView.swift */,
 				983468A02B8D9BBA0045D037 /* Views */,
-				2F5C5D652B90950A00531C33 /* GoogleService-Info.plist */,
 				9834685B2B8D997F0045D037 /* Assets.xcassets */,
+				0F1C0E422B949763008962AE /* GoogleService-Info.plist */,
 				9834685D2B8D997F0045D037 /* Preview Content */,
 			);
 			path = Socialmedia;
@@ -209,7 +209,6 @@
 		983468A02B8D9BBA0045D037 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				988560762B94422700E062DA /* GoogleService-Info.plist */,
 				2F5C5D322B8EDB7F00531C33 /* Helpers */,
 				2F5C5D2F2B8E2D0D00531C33 /* MainView */,
 				2F5C5D2E2B8E2D0000531C33 /* Login */,
@@ -319,10 +318,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2F5C5D662B90950A00531C33 /* GoogleService-Info.plist in Resources */,
-				988560772B94422700E062DA /* GoogleService-Info.plist in Resources */,
 				9834685F2B8D997F0045D037 /* Preview Assets.xcassets in Resources */,
 				9834685C2B8D997F0045D037 /* Assets.xcassets in Resources */,
+				0F1C0E432B949763008962AE /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -482,9 +480,10 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Socialmedia/Preview Content\"";
-				DEVELOPMENT_TEAM = 4NZCYY46NY;
+				DEVELOPMENT_TEAM = RHL26U4H7P;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Socialmedia/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -495,7 +494,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = in.edu.srmist.Socialmedia;
+				PRODUCT_BUNDLE_IDENTIFIER = in.edu.srmist.Changedsocialmedia;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -511,9 +510,10 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Socialmedia/Preview Content\"";
-				DEVELOPMENT_TEAM = 4NZCYY46NY;
+				DEVELOPMENT_TEAM = RHL26U4H7P;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Socialmedia/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -524,7 +524,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = in.edu.srmist.Socialmedia;
+				PRODUCT_BUNDLE_IDENTIFIER = in.edu.srmist.Changedsocialmedia;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
