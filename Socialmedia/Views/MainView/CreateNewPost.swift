@@ -21,6 +21,7 @@ struct CreateNewPost: View {
     @State private var showAudioPicker = false
     @State private var photoItem: PhotosPickerItem?
     @FocusState private var showkeyboard: Bool
+    @State private var player: AVPlayer?
 
     var body: some View {
         VStack{
@@ -78,6 +79,9 @@ struct CreateNewPost: View {
                         .clipped()
                         .frame(height:220)
                     }
+                    if let audioURL = audioURL {
+                                        AudioPlayerView(url: audioURL)
+                                    }
                 }
                 .padding(15)
             }
@@ -132,6 +136,9 @@ struct CreateNewPost: View {
                 //used to delete the post later
                 let imageReferenceID = "\(userUID)\(Date())"
                 let storageref = Storage.storage().reference().child("Post_Images").child(imageReferenceID)
+                
+//                let songReferenceID = "\(userUID)\(Date())"
+//                let storageref = Storage.storage().reference().child("Post_Audio").child(songReferenceID)
                 
                 if let postImageData{
                     
@@ -239,6 +246,56 @@ struct AudioPicker: UIViewControllerRepresentable {
         func documentPickerWasCancelled(_ controller: UIDocumentPickerViewController) {
             parent.audioURL = nil
             controller.dismiss(animated: true, completion: nil)
+        }
+    }
+}
+
+class Player: ObservableObject {
+    let url: URL
+    @Published var player: AVPlayer?
+    @Published var isPlaying = false
+
+    init(url: URL) {
+        self.url = url
+        self.player = AVPlayer(url: url)
+    }
+
+    func playPause() {
+        guard let player = player else { return }
+        if player.rate == 0 {
+            isPlaying = true
+            player.play()
+        } else {
+            isPlaying = false
+            player.pause()
+        }
+    }
+}
+
+struct AudioPlayerView: View {
+    let url: URL
+    @State private var player: AVPlayer?
+
+    var body: some View {
+        VStack {
+            Button(action: {
+                if player?.rate == 0 {
+                    player?.play()
+                } else {
+                    player?.pause()
+                }
+            }) {
+                Image(systemName: player?.rate == 0 ? "play.fill" : "pause.fill")
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(width: 50, height: 50)
+            }
+        }
+        .onAppear {
+            player = AVPlayer(url: url)
+        }
+        .onDisappear {
+            player?.pause()
         }
     }
 }
