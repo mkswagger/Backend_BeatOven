@@ -172,8 +172,10 @@ struct CreateNewPost: View {
 //                    
 //                }
                 if let postSongData{
-                    
-                    let _ = try await songRef.putDataAsync(postSongData)
+                    let metadata = StorageMetadata()
+                    metadata.contentType = "audio/mp3"
+                    let _ = try await songRef.putDataAsync(postSongData,metadata: metadata)
+                
                     let downloadURL = try await songRef.downloadURL()
 
                     let post = Post(text: postText, imageURL: downloadURL,imageReferenceID: songReferenceID, publishedDate: Date(), username: userName, userUID : userUID, userProfileURL: profileURL)

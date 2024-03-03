@@ -23,16 +23,11 @@ struct PostCardView: View {
     var body: some View {
         HStack(alignment: .top, spacing: 12){
             if let URl = post.imageURL{
-                if URl.absoluteString.range(of: "Post_Images") != nil{
                     WebImage(url: post.userProfileURL)
                         .resizable()
                         .aspectRatio(contentMode: .fill)
                         .frame(width: 35, height: 35)
                         .clipShape(Circle())
-                }
-                else{
-                    PlayerView(player: $player, url: URl)
-                }
             }
             
             VStack(alignment: .leading, spacing: 6){
@@ -54,25 +49,32 @@ struct PostCardView: View {
                     .textSelection(.enabled)
                     .padding(.vertical,8)
                 //post image if any
-                if let postImageURL = post.imageURL{
-                    GeometryReader{
-                        let size = $0.size
-                        WebImage(url: postImageURL)
-                            .resizable()
-                            .aspectRatio(contentMode: .fill)
-                            .frame(width: size.width, height: size.height)
-                            .clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
-                        
+
+                    if let URl = post.imageURL{
+                        if URl.absoluteString.range(of: "Post_Images") != nil{
+                            GeometryReader{
+                                let size = $0.size
+                                WebImage(url: URl)
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fill)
+                                    .frame(width: size.width, height: size.height)
+                                    .clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
+                                
+                            }
+                            .frame(height: 200)
+                        }
+                        else{
+                            PlayerView(player: $player, url: URl)
+                        }
                     }
-                    .frame(height: 200)
-                }
+
+                
                 PostInteraction()
             }
         }
         //.shadow(radius: 10)
         .hAlign(.leading)
         .overlay(alignment: .topTrailing, content: {
-            //displaying delete button if it is author's post
             if post.userUID == userUID{
                 Menu{
                     Button("Delete Post", role: .destructive , action: deletePost)
