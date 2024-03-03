@@ -8,6 +8,7 @@ struct CreateNewPost: View {
     var onPost: (Post)->()
     @State private var postText: String = ""
     @State private var postImageData: Data?
+    @State private var postSongData: Data?
     @State private var audioURL: URL?
     @State private var publishedDate: Date?
     @AppStorage("user_profile_url") private var profileURL: URL?
@@ -22,6 +23,7 @@ struct CreateNewPost: View {
     @State private var photoItem: PhotosPickerItem?
     @FocusState private var showkeyboard: Bool
     @State private var player: AVPlayer?
+    @State private var fileURL:URL?
 
     var body: some View {
         VStack{
@@ -79,8 +81,8 @@ struct CreateNewPost: View {
                         .clipped()
                         .frame(height:220)
                     }
-                    if let audioURL = audioURL {
-                                        AudioPlayerView(url: audioURL)
+                    if let data = postSongData {
+                                        AudioPlayerView(data: data)
                                     }
                 }
                 .padding(15)
@@ -98,8 +100,19 @@ struct CreateNewPost: View {
                 } label: {
                     Image(systemName: "music.note")
                         .font(.title3)
-                }.sheet(isPresented: $showAudioPicker) {
-                    AudioPicker(audioURL: $audioURL)
+                }.fileImporter(
+                    isPresented: $showAudioPicker,
+                    allowedContentTypes: [.audio],
+                    allowsMultipleSelection: false
+                ) { result in
+                    do {
+                        let fileURL = try result.get().first!
+                        self.fileURL = fileURL
+                        let data = try Data(contentsOf: fileURL)
+                        postSongData = data
+                    } catch {
+                        print("Error reading the selected file: \(error.localizedDescription)")
+                    }
                 }
             }
         }
@@ -135,25 +148,46 @@ struct CreateNewPost: View {
                 //step 1 upload image if any
                 //used to delete the post later
                 let imageReferenceID = "\(userUID)\(Date())"
-                let storageref = Storage.storage().reference().child("Post_Images").child(imageReferenceID)
+                let storageref = Storage.storage().reference()
+                let imageRef = storageref.child("Post_Images").child(imageReferenceID)
+//.child("Post_Images").child(imageReferenceID)
                 
-//                let songReferenceID = "\(userUID)\(Date())"
-//                let storageref = Storage.storage().reference().child("Post_Audio").child(songReferenceID)
+               let songReferenceID = "\(userUID)\(Date())"
+               let songRef = storageref.child("Post_Audios").child(songReferenceID)
+//               let storageref = Storage.storage().reference().child("Post_Audio").child(songReferenceID)
                 
                 if let postImageData{
                     
-                    let _ = try await storageref.putDataAsync(postImageData)
-                    let downloadURL = try await storageref.downloadURL()
+                    let _ = try await imageRef.putDataAsync(postImageData)
+                    let downloadURL = try await imageRef.downloadURL()
                     //create post obj with image id and url
                     let post = Post(text: postText, imageURL: downloadURL,imageReferenceID: imageReferenceID, publishedDate: Date(), username: userName, userUID : userUID, userProfileURL: profileURL)
 //                    let post = Post(text: postText, publishedDate: publishedDate! , username: userName, userUID: userUID, userProfileURL: profileURL)
                     try await createDocumentAtFirebase(post)
-                }else{
-                    //directly post text data to firebase(no imgs present condition)
-                    let post = Post(text: postText,publishedDate: Date(), username: userName, userUID: userUID, userProfileURL: profileURL)
-                    try await createDocumentAtFirebase(post)
-                    
                 }
+//                else{
+//                    //directly post text data to firebase(no imgs present condition)
+//                    let post = Post(text: postText,publishedDate: Date(), username: userName, userUID: userUID, userProfileURL: profileURL)
+//                    try await createDocumentAtFirebase(post)
+//                    
+//                }
+                if let postSongData{
+                    let metadata = StorageMetadata()
+                    metadata.contentType = "audio/mp3"
+                    let _ = try await songRef.putDataAsync(postSongData,metadata: metadata)
+                
+                    let downloadURL = try await songRef.downloadURL()
+
+                    let post = Post(text: postText, imageURL: downloadURL,imageReferenceID: songReferenceID, publishedDate: Date(), username: userName, userUID : userUID, userProfileURL: profileURL)
+
+                    try await createDocumentAtFirebase(post)
+                }
+//                else{
+//                    //directly post text data to firebase(no imgs present condition)
+//                    let post = Post(text: postText,publishedDate: Date(), username: userName, userUID: userUID, userProfileURL: profileURL)
+//                    try await createDocumentAtFirebase(post)
+//                    
+//                }
             }catch{
                 await setError(error)
                 
@@ -251,13 +285,20 @@ struct AudioPicker: UIViewControllerRepresentable {
 }
 
 class Player: ObservableObject {
-    let url: URL
-    @Published var player: AVPlayer?
+    let musicData:Data
+    @Published var player: AVAudioPlayer?
     @Published var isPlaying = false
 
-    init(url: URL) {
-        self.url = url
-        self.player = AVPlayer(url: url)
+    init(data: Data) {
+        self.musicData = data
+        do {
+            self.player = try AVAudioPlayer(data: data)
+            self.player?.prepareToPlay()
+            self.player?.play()
+        } catch {
+            print("Error creating AVAudioPlayer: \(error.localizedDescription)")
+        }
+        
     }
 
     func playPause() {
@@ -273,8 +314,8 @@ class Player: ObservableObject {
 }
 
 struct AudioPlayerView: View {
-    let url: URL
-    @State private var player: AVPlayer?
+    let data:Data
+    @State private var player: AVAudioPlayer?
 
     var body: some View {
         VStack {
@@ -292,7 +333,14 @@ struct AudioPlayerView: View {
             }
         }
         .onAppear {
-            player = AVPlayer(url: url)
+            do {
+                player = try AVAudioPlayer(data: data)
+                player?.prepareToPlay()
+                player?.play()
+            } catch {
+                print("Error creating AVAudioPlayer: \(error.localizedDescription)")
+            }
+            
         }
         .onDisappear {
             player?.pause()
