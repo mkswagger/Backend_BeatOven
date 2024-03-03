@@ -61,7 +61,7 @@ struct PostCardView: View {
                 PostInteraction()
             }
         }
-        .shadow(radius: 10)
+        //.shadow(radius: 10)
         .hAlign(.leading)
         .overlay(alignment: .topTrailing, content: {
             //displaying delete button if it is author's post
