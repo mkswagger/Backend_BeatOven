@@ -54,6 +54,7 @@
 		983468A52B8D9C230045D037 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 983468A42B8D9C220045D037 /* LoginView.swift */; };
 		983468A82B8DDA420045D037 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 983468A72B8DDA420045D037 /* User.swift */; };
 		983468AC2B8DFC7D0045D037 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 983468AB2B8DFC7D0045D037 /* LoadingView.swift */; };
+		988560772B94422700E062DA /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 988560762B94422700E062DA /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -77,6 +78,7 @@
 		983468A42B8D9C220045D037 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		983468A72B8DDA420045D037 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		983468AB2B8DFC7D0045D037 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
+		988560762B94422700E062DA /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../Documents/GoogleService-Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -207,6 +209,7 @@
 		983468A02B8D9BBA0045D037 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				988560762B94422700E062DA /* GoogleService-Info.plist */,
 				2F5C5D322B8EDB7F00531C33 /* Helpers */,
 				2F5C5D2F2B8E2D0D00531C33 /* MainView */,
 				2F5C5D2E2B8E2D0000531C33 /* Login */,
@@ -317,6 +320,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2F5C5D662B90950A00531C33 /* GoogleService-Info.plist in Resources */,
+				988560772B94422700E062DA /* GoogleService-Info.plist in Resources */,
 				9834685F2B8D997F0045D037 /* Preview Assets.xcassets in Resources */,
 				9834685C2B8D997F0045D037 /* Assets.xcassets in Resources */,
 			);
